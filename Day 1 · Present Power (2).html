@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Day 1 · Present Power</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f3f5fb;--fg:#17182b;--cd:#fff;--mu:#62647a;--bd:#dde1ee;--or:#c2570a;--bl:#1d4ed8;--pu:#7e22ce;--gr:#15803d;--ok:#d7f5e0;--no:#fde0e0;--hi:#17182b;--hf:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12131f;--fg:#eceefa;--cd:#1b1d2e;--mu:#9a9db5;--bd:#2f3250;--or:#fb923c;--bl:#7aa7ff;--pu:#c68bff;--gr:#4ade80;--ok:#14452a;--no:#561b1b;--hi:#eceefa;--hf:#12131f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12131f;--fg:#eceefa;--cd:#1b1d2e;--mu:#9a9db5;--bd:#2f3250;--or:#fb923c;--bl:#7aa7ff;--pu:#c68bff;--gr:#4ade80;--ok:#14452a;--no:#561b1b;--hi:#eceefa;--hf:#12131f;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.55 "DM Sans",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;margin:0 0 .5em}
+h1{font-size:clamp(28px,5vw,44px);font-weight:800}h2{font-size:clamp(24px,4vw,34px);font-weight:800}h3{font-size:22px;margin:0}
+c{color:var(--or);font-weight:700}v{color:var(--bl);font-weight:700}d{color:var(--pu);font-weight:700}w{color:var(--gr);font-weight:700}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:960px;margin:0 auto}
+#tm{font:800 30px "Bricolage Grotesque",sans-serif;font-variant-numeric:tabular-nums;min-width:90px}#tm.end{color:#dc2626}
+button{font:inherit;cursor:pointer;color:inherit}
+.t{border:1px solid var(--bd);background:var(--cd);border-radius:20px;padding:4px 12px;font-size:14px;font-weight:500;white-space:nowrap}
+.t.on{background:var(--hi);color:var(--hf);border-color:var(--hi)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;max-width:960px;margin:0 auto}
+.ic{width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);font-size:16px}
+main{max-width:960px;margin:0 auto;padding:22px 16px 60px}
+section{display:none}section.on{display:block}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:18px;margin:14px 0}
+.big{font-size:84px;line-height:1.1}.lead{color:var(--mu);margin:0 0 14px}
+.b{background:var(--cd);border:1.5px solid var(--bd);border-radius:10px;padding:10px 16px;font-weight:700}
+.b:hover{border-color:var(--hi)}.b.p{background:var(--hi);color:var(--hf);border-color:var(--hi)}
+.b.ok{background:var(--ok);border-color:var(--gr)}.b.no{background:var(--no);border-color:#dc2626}.b:disabled{cursor:default}
+.o{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.q{font:600 22px/1.3 "Bricolage Grotesque",sans-serif}
+.fd{min-height:44px}.fd .b{margin-left:8px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.fc{text-align:left;border:1px solid var(--bd);background:var(--cd);border-radius:12px;padding:14px;min-height:96px}
+.fc .bk{display:none;margin-top:8px;font-size:15px}.fc.open .bk{display:block}.fc.open{border-color:var(--or)}
+.fc b{font:800 22px "Bricolage Grotesque",sans-serif}
+.chip{display:inline-block;border:1.5px solid var(--bd);border-radius:20px;padding:4px 12px;margin:4px 6px 4px 0;font-weight:500;background:var(--cd);font-size:15px}
+button.chip.on{background:var(--hi);color:var(--hf);border-color:var(--hi)}
+.sc{font:800 40px "Bricolage Grotesque",sans-serif}
+.rule{font:800 clamp(22px,4vw,30px)/1.2 "Bricolage Grotesque",sans-serif;text-align:center;border:2px solid var(--hi);border-radius:14px;padding:14px;margin:6px 0 16px}
+.tc{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.th{display:flex;align-items:center;gap:10px}.th .em{font-size:38px}.th small{display:block;color:var(--mu);font-weight:700}
+.fm{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:15px}.tc p{margin:0}
+.tr{border:2px dashed var(--or);border-radius:10px;padding:8px 12px;font-size:15px}
+svg{width:100%;height:auto;display:block}
+.sl{stroke:var(--mu);stroke-width:3}.sn{stroke:var(--or);stroke-width:3}.sb{fill:var(--bl)}.so{fill:var(--or)}.sf{fill:var(--fg)}.sm{fill:var(--mu)}.sa{fill:var(--bl);fill-opacity:.18;stroke:var(--bl);stroke-width:2}
+svg text{font:700 12px "DM Sans",sans-serif}
+@media(prefers-reduced-motion:no-preference){.big{transition:transform .2s}.big.pop{transform:scale(1.15)}}
+</style></head><body>
+<header><div class="row"><div id="tm">10:00</div>
+<button class="ic" id="go" aria-label="Start or pause">▶</button><button class="ic" id="rs" aria-label="Reset timer">↺</button>
+<button class="ic" id="th" aria-label="Toggle theme">◐</button></div>
+<nav id="nv"></nav></header>
+<main>
+<h1>Day 1: Present Power </h1>
+<p class="lead">Colores: conectores en <c>naranja</c>, verbos en <v>azul</v>, vocabulario clave en <w>verde</w>. Explicaciones en español, prácticas en inglés.</p>
+
+<section id="warm"><h2>Emoji Relay</h2>
+<div class="card" id="wc" style="text-align:center"><div class="big">?</div><p class="q">Press “Next round”.</p></div>
+<div class="o"><button class="b p" id="wn">Next round ▶</button><button class="b" id="wr">Random emoji + connector</button></div></section>
+
+<section id="chunks"><h2>Sound native: chunks</h2>
+<div class="g" id="cg"></div>
+<div class="rule" style="margin-top:20px"><c>FOR</c> + cuánto tiempo (two years) &nbsp;·&nbsp; <c>SINCE</c> + desde cuándo (2020)</div></section>
+
+<section id="ga"><h2>Simple vs. Continuous <small style="font-size:16px;color:var(--mu)">(Presente simple vs. continuo)</small></h2>
+<div class="rule">🔁 Simple = siempre &nbsp;·&nbsp; 🎥 Continuous = ahora</div><div class="g" id="a"></div></section>
+
+<section id="gb"><h2>Perfect vs. Perfect Continuous</h2>
+<div class="rule">🏆 ¿Cuántos? (resultado) &nbsp;·&nbsp; 💦 ¿Cuánto tiempo? (proceso)</div><div class="g" id="b"></div>
+<div class="card"><h3>FOR vs. SINCE </h3><svg viewBox="0 0 320 110" role="img" aria-label="for es duración, since es punto de inicio"><line class="sl" x1="10" y1="62" x2="310" y2="62"/><circle class="so" cx="50" cy="62" r="8"/><text class="so" x="14" y="92">SINCE 2022 (desde)</text><line class="sn" x1="250" y1="44" x2="250" y2="80"/><text class="so" x="250" y="96" text-anchor="middle">AHORA</text><path d="M50 40 H250" class="sn" fill="none"/><text class="sf" x="150" y="32" text-anchor="middle">FOR four years (por cuatro años)</text></svg>
+<p style="text-align:center">I’<v>ve been working</v> here <c>since</c> 2022 = <c>for</c> four years.<br><small style="color:var(--mu)">Llevo trabajando aquí desde 2022 = por cuatro años.</small></p></div></section>
+
+<section id="ch"><h2>Ruleta de preguntas</h2>
+<div class="card" id="rl" style="text-align:center"><p class="q">Press Spin</p><small style="color:var(--mu)">Pregunta abierta + tiempo verbal + ejemplo</small></div>
+<div class="o" style="justify-content:center"><button class="b p" id="sp">Spin</button><button class="b" id="s60">Start 60 seconds</button></div>
+<div class="card"><b>Score (optional)</b><p class="lead">Toca cada punto cuando tu compañero lo logre.</p><div id="rc"></div>
+<div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap"><div class="sc" id="sc">0 pts</div><small style="color:var(--mu)">Tiempo correcto = 2 · cada conector = 1 · sin español = +3</small></div></div></section>
+
+<section id="qz"><h2>Live quiz</h2><p class="lead">Cada giro saca una pregunta al azar, sin orden. No se repiten hasta usar todo el banco (49 preguntas).</p>
+<div class="card" id="g4"></div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const T=[["ga","1 Simple/Continuous",10],["gb","2 Perfect/Perfect Cont.",15],["chunks","3 Chunks",10],["warm","4 Relay",10],["ch","5 Ruleta",20],["qz","6 Quiz",25]];
+let sec=0,run=null,cur=0;const go=$("#go"),tm=$("#tm");
+function draw(){tm.textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");tm.classList.toggle("end",sec==0)}
+function stop(){clearInterval(run);run=null;go.textContent="▶"}
+function setT(s){stop();sec=s;draw()}
+function toggle(){if(run){stop();return}if(!sec)return;go.textContent="⏸";run=setInterval(()=>{sec--;draw();if(sec<=0)stop()},1000)}
+go.onclick=toggle;$("#rs").onclick=()=>setT(T[cur][2]*60);
+$("#th").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).colorScheme=="dark";r.dataset.theme=d?"light":"dark"};
+function show(i){cur=i;$$("section").forEach(s=>s.classList.toggle("on",s.id==T[i][0]));$$(".t").forEach((b,k)=>b.classList.toggle("on",k==i));setT(T[i][2]*60);scrollTo(0,0)}
+T.forEach((t,i)=>{const b=document.createElement("button");b.className="t";b.textContent=t[1];b.onclick=()=>show(i);$("#nv").append(b)});
+function quiz(id,B){const el=$("#"+id);let dk=[],s=0,n=0;
+function init(){el.innerHTML='<div style="text-align:center"><p class="q">Press Spin</p><div class="o" style="justify-content:center"><button class="b p">Spin</button></div></div>';el.querySelector("button").onclick=spin}
+function spin(){if(!dk.length)dk=B.map((_,k)=>k).sort(()=>Math.random()-.5);const it=B[dk.pop()];
+let t=matchMedia("(prefers-reduced-motion:reduce)").matches?0:12,d=60;
+(function tick(){if(t-->0){el.innerHTML=`<p class="q" style="opacity:.45">${B[Math.random()*B.length|0][0]}</p>`;d+=14;setTimeout(tick,d)}else ask(it)})()}
+function ask(it){const o=it.slice(1,5).filter(Boolean).map((t,k)=>({t,ok:k==0})).sort(()=>Math.random()-.5);
+el.innerHTML=`<small>Score: ${s}/${n} · ${dk.length} left</small><div class="q">${it[0]}</div><div class="o">${o.map((x,k)=>`<button class="b" data-ok="${x.ok?1:0}">${"ABCD"[k]}) ${x.t}</button>`).join("")}</div><div class="fd"></div>`;
+el.querySelectorAll(".o button").forEach(b=>b.onclick=()=>{const ok=b.dataset.ok=="1";n++;if(ok)s++;
+el.querySelectorAll(".o button").forEach(x=>{x.disabled=true;if(x.dataset.ok=="1")x.classList.add("ok")});if(!ok)b.classList.add("no");
+el.querySelector("small").textContent=`Score: ${s}/${n} · ${dk.length} left`;
+const f=el.querySelector(".fd");f.innerHTML=(ok?"Correcto. ":"Incorrecto. ")+it[5]+'<button class="b p n">Spin ▶</button>';f.querySelector(".n").onclick=spin})}
+init()}
+/* relay */
+const R=[["🔁","What do you ALWAYS do on Monday?","","Siempre / rutina: I always…"],["🎥","What are you doing RIGHT NOW?","","Ahora mismo: I’m…"],["🏆","What have you done this week?","first","Ya lo hice: I have…"],["💦","What have you been doing for a long time?","for","Llevo haciendo: I have been… for…"]];
+const CN=["first","then","while","for","since"];let ri=-1;
+function wc(e,p,c,h){$("#wc").innerHTML=`<div class="big pop">${e}</div><p class="q">${p}</p>${h?`<p class="lead">${h}</p>`:""}${c?`<span class="chip"><c>${c.toUpperCase()}</c> is mandatory</span>`:""}`;setTimeout(()=>{const b=$("#wc .big");b&&b.classList.remove("pop")},200)}
+$("#wn").onclick=()=>{ri=(ri+1)%R.length;wc(...R[ri])};
+$("#wr").onclick=()=>{const e=["🔁","🎥","🏆","💦"][Math.random()*4|0];wc(e,"Say one sentence about you.",CN[Math.random()*5|0],"Usa el tiempo del emoji y el conector.")};
+/* chunks */
+const C=[["FIRST",[["First, I…","Primero, yo…"],["First of all…","Antes que nada…"],["The first thing I do is…","Lo primero que hago es…"]],"First, I ____."],["THEN",[["Then I…","Luego yo…"],["And then…","Y luego…"],["Then I realize…","Entonces me doy cuenta…"]],"Then I ____."],["WHILE",[["I listen to music while I walk.","Escucho música mientras camino."],["while I’m waiting","mientras espero"],["while I’m at it","ya que estoy en eso"]],"I ____ while I ____."],["FOR",[["for a long time","por mucho tiempo"],["for two years","por dos años"],["for a while","por un rato"],["for ages","desde hace siglos"]],"I have ____ for ____."],["SINCE",[["since 2020","desde 2020"],["since Monday","desde el lunes"],["since I was a kid","desde que era niño"],["since forever","desde siempre"]],"I have ____ since ____."]];
+C.forEach(c=>{const b=document.createElement("button");b.className="fc";b.innerHTML=`<b><c>${c[0]}</c></b><div class="bk">${c[1].map(x=>`• ${x[0]}<br><small style="color:var(--mu)">= ${x[1]}</small>`).join("<br>")}<br><br><w>Your turn:</w> ${c[2]}</div>`;b.onclick=()=>b.classList.toggle("open");$("#cg").append(b)});
+/* grammar */
+const H='<line class="sl" x1="10" y1="52" x2="310" y2="52"/><line class="sn" x1="200" y1="36" x2="200" y2="68"/><text class="so" x="200" y="84" text-anchor="middle">AHORA</text>';
+const D={
+s:H+[30,70,110,150,190,230,270].map(x=>`<circle class="sb" cx="${x}" cy="52" r="6"/>`).join("")+'<text class="sf" x="110" y="26" text-anchor="middle">una y otra vez · siempre</text>',
+c:H+'<rect class="sa" x="168" y="30" width="64" height="44" rx="10"/><text x="200" y="60" text-anchor="middle" style="font-size:22px">🎥</text><text class="sf" x="90" y="30" text-anchor="middle">ahora mismo · estos días</text>',
+p:H+'<circle class="sb" cx="60" cy="52" r="7"/><path d="M70 52 H182" stroke="var(--bl)" stroke-width="3" fill="none"/><text x="200" y="26" text-anchor="middle" style="font-size:24px">🏆</text><text class="sf" x="120" y="38" text-anchor="middle">ya pasó → resultado hoy</text>',
+pc:H+'<rect class="sb" x="40" y="44" width="150" height="16" rx="8"/><text class="so" x="40" y="34">SINCE (desde)</text><text class="sf" x="135" y="34" text-anchor="middle">FOR (mucho tiempo)</text><text x="222" y="58" style="font-size:22px">💦</text>'};
+const G=[
+{e:"🔁",n:"Present Simple",k:"La foto (siempre es así)",d:"s",f:"<v>I / you / we / they + verbo</v><br><v>he / she / it + verbo + s</v><br><v>Do / Does</v> + sujeto + verbo · <v>don’t / doesn’t</v> + verbo",u:"Rutinas, hechos y cosas que siempre son así.",s:[["always","siempre"],["usually","normalmente"],["every day","todos los días"],["never","nunca"]],x:"She <v>drinks</v> coffee every morning.",xe:"Ella toma café todas las mañanas.",t:"No olvides la <b>-s</b> con he / she / it: ✗ She drink → ✓ She drinks."},
+{e:"🎥",n:"Present Continuous",k:"El live 🎥 (pasa ahora)",d:"c",f:"<v>am / is / are + verbo-ing</v><br><v>Are</v> you working? · I’m <c>not</c> working",u:"Lo que pasa ahora mismo, o algo temporal estos días.",s:[["right now","ahora mismo"],["at the moment","en este momento"],["today","hoy"],["this week","esta semana"]],x:"I’<v>m working</v> from home this week.",xe:"Esta semana trabajo desde casa.",t:"Verbos de estado (want, know, like, need) casi nunca llevan -ing: ✗ I’m wanting coffee → ✓ I want coffee."},
+{e:"🏆",n:"Present Perfect",k:"El trofeo 🏆 (resultado)",d:"p",f:"<v>have / has + participio</v> (has con he / she / it)<br><v>Have</v> you finished? · <v>haven’t / hasn’t</v> finished",u:"Algo que pasó antes y tiene un resultado hoy, o cuántas veces. Importa el resultado.",s:[["already","ya"],["just","acabo de"],["yet","todavía (no)"],["ever","alguna vez"],["how many","cuántos"]],x:"I’<v>ve written</v> three emails.",xe:"He escrito tres correos.",t:"No lo uses con un tiempo terminado: ✗ I have seen it yesterday → ✓ I saw it yesterday."},
+{e:"💦",n:"Present Perfect Continuous",k:"El sudor 💦 (proceso)",d:"pc",f:"<v>have / has + been + verbo-ing</v><br><v>Have</v> you been waiting? · <v>haven’t been</v> waiting",u:"Algo que empezó antes y sigue hasta ahora. Importa el proceso y cuánto tiempo.",s:[["for","por / durante"],["since","desde"],["all day","todo el día"],["lately","últimamente"],["how long","cuánto tiempo"]],x:"I’<v>ve been learning</v> English <c>for</c> two years.",xe:"Llevo dos años aprendiendo inglés.",t:"En español decimos “vivo aquí desde 2020”, en inglés no: ✗ I live here since 2020 → ✓ I’ve lived here since 2020."}];
+function card(g){return `<div class="tc"><div class="th"><span class="em">${g.e}</span><div><h3>${g.n}</h3><small>${g.k}</small></div></div><svg viewBox="0 0 320 92" role="img" aria-label="${g.n}">${D[g.d]}</svg><div class="fm">${g.f}</div><p><b>Úsalo para:</b> ${g.u}</p><div>${g.s.map(x=>`<span class="chip"><c>${x[0]}</c> <small>${x[1]}</small></span>`).join("")}</div><p>${g.x}<br><small style="color:var(--mu)">${g.xe}</small></p><div class="tr"><b>Ojo:</b> ${g.t}</div></div>`}
+$("#a").innerHTML=card(G[0])+card(G[1]);$("#b").innerHTML=card(G[2])+card(G[3]);
+/* challenge */
+[["Right tense",2],["first",1],["then",1],["while",1],["for",1],["since",1],["No Spanish!",3]].forEach(x=>{
+const b=document.createElement("button");b.className="chip";b.dataset.p=x[1];b.textContent=x[0];
+b.onclick=()=>{b.classList.toggle("on");$("#sc").textContent=$$("#rc .on").reduce((a,e)=>a+ +e.dataset.p,0)+" pts"};$("#rc").append(b)});
+$("#s60").onclick=()=>{setT(60);toggle()};
+const Q=[
+["s","What time do you wake up on weekdays?","I usually wake up at six. Then I make coffee."],
+["s","What do you do on Sundays?","On Sundays I visit my family and we eat lunch together."],
+["s","What do you do for work?","I work in a school. I start at seven."],
+["s","What do you eat for breakfast?","I eat eggs and bread. I drink coffee."],
+["s","How do you go to work?","I take the bus. It takes forty minutes."],
+["s","Who cooks at your house?","My wife cooks, and I wash the dishes."],
+["s","What do you usually do on vacation?","We usually go to the coast and we rest."],
+["s","How often do you call your family?","I call my sister every Sunday."],
+["s","What do you do when you can’t sleep?","I drink tea and I read a book."],
+["s","What does your best friend do?","He works in a bank and he plays soccer on Saturdays."],
+["s","Tell us your morning routine.","First I shower. Then I drink coffee.","first + then"],
+["s","What do you do while you cook?","I listen to the radio while I cook.","while"],
+["c","What are you doing right now?","I’m sitting in class and I’m talking to you."],
+["c","What is your family doing today?","My wife is working and my son is studying."],
+["c","What are you fixing or changing at home this month?","I’m painting the kitchen this month."],
+["c","What are you learning these days?","I’m learning English and I’m learning to use my phone better."],
+["c","Look outside. What is happening?","It’s raining and people are running."],
+["c","What are your neighbors doing at the moment?","I think they are watching TV."],
+["c","Are you changing any habit this year?","Yes, I’m walking every day and I’m eating less sugar."],
+["c","What are you reading or watching these days?","I’m watching a good series about history."],
+["c","What are you cooking this week?","I’m cooking soup because it’s cold."],
+["c","What problem are you trying to solve this month?","I’m trying to find a good doctor."],
+["c","What is your best friend doing these days?","He is traveling for work this month."],
+["c","Describe your house right now. Who is at home?","My daughter is sleeping and my husband is cooking."],
+["p","What have you done today?","I have had breakfast and I have walked my dog."],
+["p","How many cities or countries have you visited?","I have visited five cities in my country."],
+["p","Have you ever cooked for a lot of people?","Yes, I have. I cooked for my family at Christmas."],
+["p","What is the best meal you have ever eaten?","The best meal I have ever eaten was my mother’s soup."],
+["p","Have you ever lost something important?","Yes, I have. I lost my keys last year."],
+["p","What have you just finished?","I have just finished my coffee and this activity."],
+["p","How many jobs have you had?","I have had three jobs."],
+["p","What new thing have you tried this year?","I have tried a new sport."],
+["p","Have you already made plans for the weekend?","Yes, I have. I have already called my sister."],
+["p","Who is the most interesting person you have ever met?","My grandfather. He has told me great stories."],
+["p","What have you fixed or repaired at home?","I have repaired the door and I have painted the wall."],
+["p","How long have you known your best friend?","I have known him for thirty years. (Know = verbo de estado: no se dice “been knowing”.)","for"],
+["x","How long have you been working?","I have been working for twenty years.","for"],
+["x","How long have you been living in your house?","I have been living there since 2015.","since"],
+["x","What have you been doing lately?","I have been walking more and I have been sleeping better."],
+["x","How long have you been learning English?","I have been learning English since January.","for / since"],
+["x","What hobby have you been doing for a long time?","I have been gardening for ten years.","for"],
+["x","How long have you been waiting for something important?","I have been waiting for an answer since Monday.","since"],
+["x","What have you been thinking about this week?","I have been thinking about my vacation."],
+["x","Who have you been talking to a lot lately?","I have been talking to my brother every day."],
+["x","What have you been cooking this month?","I have been cooking a lot of beans and rice."],
+["x","How long have you been using your phone?","I have been using this phone for two years.","for"],
+["x","What have you been doing since you woke up?","I have been drinking coffee and answering messages since six.","since"],
+["x","What have you been doing to feel better lately?","I have been drinking more water and walking every morning."]
+].map(q=>({t:q[0],q:q[1],e:q[2],c:q[3]})).concat(["Wild card: ask a classmate any question from the roulette. Use the same tense!","Wild card: answer the next question with TWO connectors.","Wild card: choose any tense and tell us about your week."].map(w=>({w})));
+const TM={s:0,c:1,p:2,x:3};let dk=[];
+function rq(it){const g=G[TM[it.t]];$("#rl").innerHTML=it.w?`<p class="q">${it.w}</p><small style="color:var(--mu)">${dk.length} left</small>`:`<div class="chip">${g.e} <b>${g.n}</b></div><p class="q">${it.q}</p>${it.c?`<p>Also use: <c>${it.c}</c></p>`:""}<p>Example: <i>${it.e}</i></p><div class="fm" style="text-align:left"><b>Aclaración:</b> ${g.u}<br>${g.f}</div><small style="color:var(--mu)">${dk.length} left</small>`}
+$("#sp").onclick=()=>{if(!dk.length)dk=Q.map((_,i)=>i).sort(()=>Math.random()-.5);const it=Q[dk.pop()];
+let n=matchMedia("(prefers-reduced-motion:reduce)").matches?0:14,d=60;
+(function tick(){if(n-->0){const r=Q[Math.random()*Q.length|0];$("#rl").innerHTML=`<p class="q" style="opacity:.45">${r.q||"Wild card"}</p>`;d+=14;setTimeout(tick,d)}else rq(it)})()};
+/* quiz */
+const QB=[
+["My brother ___ in a hospital.","works","is working","has worked","work","Es su trabajo de siempre: Present Simple, y con he/she/it va la -s."],
+["We ___ lunch at two every day.","have","are having","have had","has","“Every day” = hábito → Present Simple."],
+["She ___ coffee. She prefers tea.","doesn’t drink","isn’t drinking","hasn’t drunk","don’t drink","Negativo en Simple con she: doesn’t + verbo."],
+["___ you like fish?","Do","Are","Have","Does","Pregunta en Simple con you: Do."],
+["The sun ___ in the east.","rises","is rising","has risen","rise","Un hecho que siempre es cierto → Simple."],
+["He never ___ late.","arrives","is arriving","has arrived","arrive","“Never” indica hábito → Simple, con -s."],
+["Be quiet! The baby ___.","is sleeping","sleeps","has slept","sleep","Está pasando ahora → Continuous."],
+["I ___ my kitchen this week.","am painting","paint","paints","painting","“This week” = algo temporal → Continuous."],
+["Look! It ___.","is raining","rains","has rained","rain","“Look!” señala lo que pasa ahora → Continuous."],
+["What ___ you doing right now?","are","do","have","does","Continuous: am / is / are + verbo-ing."],
+["My wife ___ at the moment.","is cooking","cooks","has cook","cook","“At the moment” = ahora → Continuous."],
+["I ___ this phone. I want a new one.","don’t like","am not liking","not like","isn’t like","Like es verbo de estado: casi nunca lleva -ing."],
+["They ___ in a hotel this month.","are staying","stay","have stayed","stays","Situación temporal (este mes) → Continuous."],
+["I ___ three emails today.","have written","write","am writing","has written","Tres correos = resultado → Present Perfect."],
+["She ___ to Italy twice.","has been","have been","is being","goes","Experiencia: Perfect, y con she va has."],
+["___ you ever eaten sushi?","Have","Do","Are","Has","“Ever” + experiencia → Present Perfect."],
+["I ___ my keys. I can’t find them.","have lost","lose","am losing","has lost","Pasó antes y el resultado se ve hoy → Perfect."],
+["He ___ just left.","has","have","is","does","Just + has/have + participio: acaba de salir."],
+["We ___ the house yet.","haven’t sold","don’t sell","aren’t selling","hasn’t sold","“Yet” en negativo → haven’t + participio."],
+["How many books ___ you read this year?","have","do","are","has","“How many” pregunta el resultado → Perfect."],
+["I ___ him for ten years.","have known","know","am knowing","have been knowing","Know es verbo de estado: have known, nunca “been knowing”."],
+["I ___ English for two years.","have been learning","learn","am learning","have learn","“For two years” = proceso hasta hoy → Perfect Continuous."],
+["She ___ here since 2018.","has been working","works","is working","have been working","Since + inicio → Perfect Continuous; con she va has."],
+["How long ___ you been waiting?","have","do","are","has","Perfect Continuous: have / has + been + verbo-ing."],
+["They look tired. They ___ for an hour.","have been walking","walk","walks","has walked","El proceso dejó huellas (están cansados) → Perfect Continuous."],
+["Which sentence is correct?","I have lived here since 2020.","I live here since 2020.","I am living here since 2020.","I lived here since 2020.","En inglés, desde + presente no funciona: usa have lived / have been living."],
+["It ___ all day. The streets are wet.","has been raining","rains","is rain","have been raining","Proceso largo con efecto visible → Perfect Continuous."],
+["I’ve worked here ___ five years.","for","since","during","from","For + cuánto tiempo (five years)."],
+["She has lived here ___ 2010.","since","for","from","at","Since + punto de inicio (2010)."],
+["We’ve been friends ___ we were children.","since","for","from","when","Since + cuándo empezó."],
+["He has been sick ___ Monday.","since","for","ago","during","Since + punto de inicio (Monday)."],
+["They have been married ___ thirty years.","for","since","from","in","For + duración."],
+["I haven’t seen her ___ a long time.","for","since","from","during","For a long time = por mucho tiempo."],
+["___ I wake up, then I drink coffee.","First","While","Since","For","First abre la secuencia: primero… luego…"],
+["I listen to the radio ___ I cook.","while","then","for","first","While une dos acciones al mismo tiempo."],
+["First I make coffee. ___ I read the news.","Then","While","For","Since","Then = luego, el siguiente paso."],
+["He reads the newspaper ___ he waits for the bus.","while","for","since","first","Dos acciones a la vez → while."],
+["I wash the dishes, ___ I dry them.","then","since","for","while","Un paso después del otro → then."],
+["Which sentence is correct?","She doesn’t like coffee.","She don’t like coffee.","She isn’t like coffee.","She not like coffee.","Negativo en Simple con she: doesn’t + verbo."],
+["Which sentence is correct?","I want a coffee.","I am wanting a coffee.","I wanting a coffee.","I have wanting a coffee.","Want es verbo de estado: sin -ing."],
+["Which sentence is correct?","He has finished work.","He have finished work.","He has finish work.","He finish work.","Has + participio (finished)."],
+["Which sentence is correct?","I have seen that movie.","I have saw that movie.","I seen that movie.","I am seen that movie.","Have + participio: seen (no saw)."],
+["Which sentence means “Llevo dos años aprendiendo inglés”?","I have been learning English for two years.","I learn English for two years.","I am learning English since two years.","I learn English since two years.","Llevo + tiempo → have been + -ing + for."],
+["Which sentence means “Estoy cocinando ahora”?","I’m cooking now.","I cook now.","I have cooked now.","I cooking now.","Ahora mismo → am + verbo-ing."],
+["Which sentence means “Siempre desayuno a las seis”?","I always have breakfast at six.","I am always having breakfast at six.","I have always breakfast at six.","I always am having breakfast at six.","Siempre / hábito → Present Simple."],
+["Which sentence means “He terminado mi trabajo”?","I have finished my work.","I finish my work.","I am finishing my work.","I have been finish my work.","Resultado terminado → have + participio."],
+["Which question fits: “I have been working for twenty years”?","How long have you been working?","How many have you worked?","What do you work?","Where are you working?","How long pregunta la duración."],
+["“How many cities have you visited?” asks about…","a result (cuántas)","a routine (siempre)","something right now","a future plan","How many → Present Perfect: resultado."],
+["I ___ coffee every morning, but today I ___ tea.","drink / am drinking","am drinking / drink","have drunk / drink","drink / drinks","Hábito (Simple) vs. hoy (Continuous)."]
+].map(q=>q.map(x=>x.replace("Which sentence is correct?","Which sentence is correct?")));
+quiz("g4",QB);
+show(0);
+</script></body></html>
